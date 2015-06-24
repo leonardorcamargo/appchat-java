@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="413.0" prefWidth="414.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.romano.controller.ChatController">
+   <children>
+      <Pane layoutX="46.0" layoutY="329.0" prefHeight="64.0" prefWidth="414.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <TextArea fx:id="txtMensagem" onKeyReleased="#onKeyPressed" prefHeight="62.0" prefWidth="290.0" promptText="Digite sua mensagem..." wrapText="true">
+               <font>
+                  <Font name="Arial Unicode MS" size="14.0" />
+               </font>
+            </TextArea>
+            <Button fx:id="btnEnviar" alignment="CENTER" contentDisplay="CENTER" layoutX="294.0" mnemonicParsing="false" onAction="#handleBtnEnviarAction" prefHeight="64.0" prefWidth="100.0" text="Enviar">
+               <font>
+                  <Font name="Arial Unicode MS" size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+      <com.romano.component.ListMessage fx:id="listMessage" layoutX="20.0" layoutY="52.0" prefHeight="255.0" prefWidth="374.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+   </children>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</AnchorPane>

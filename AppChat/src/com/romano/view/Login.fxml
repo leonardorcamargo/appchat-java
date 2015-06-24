@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="212.0" prefWidth="280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.romano.controller.LoginController">
+    <children>
+      <TextField fx:id="txtLogin" layoutX="9.0" layoutY="65.0" mouseTransparent="true" prefHeight="37.0" prefWidth="263.0" promptText="Login">
+         <font>
+            <Font name="Arial Unicode MS" size="18.0" />
+         </font>
+      </TextField>
+      <PasswordField fx:id="txtPassword" layoutX="9.0" layoutY="110.0" mouseTransparent="true" prefHeight="37.0" prefWidth="263.0" promptText="Password">
+         <font>
+            <Font name="Arial Unicode MS" size="18.0" />
+         </font>
+      </PasswordField>
+        <Button fx:id="btnEntrar" layoutX="9.0" layoutY="156.0" onAction="#handleButtonAction" prefHeight="30.0" prefWidth="263.0" text="Entrar">
+         <font>
+            <Font name="Arial Unicode MS" size="14.0" />
+         </font></Button>
+      <Pane layoutX="9.0" layoutY="14.0" prefHeight="55.0" prefWidth="280.0" AnchorPane.bottomAnchor="157.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <opaqueInsets>
+            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+         </opaqueInsets>
+         <effect>
+            <DropShadow color="RED" height="38.79" radius="16.6725" spread="0.16" width="29.9" />
+         </effect>
+         <children>
+            <Label fx:id="txtTitulo" layoutX="7.0" layoutY="12.0" text="Chat Corp. 0.1" textFill="#5b0d0d">
+               <effect>
+                  <Glow />
+               </effect>
+               <font>
+                  <Font name="Arial Black" size="24.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Label>
+         </children>
+      </Pane>
+    </children>
+</AnchorPane>

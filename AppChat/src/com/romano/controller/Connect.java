@@ -18,16 +18,10 @@ public class Connect {
     private static Connection CONNECT = null;
         
     public Connect(){
-       try {
-            if ((CONNECT == null) || (CONNECT.isClosed())){
-                try {
-                    Class.forName("org.h2.Driver");
-                    CONNECT = DriverManager.getConnection("jdbc:h2:tcp://leonardo-pc/~/chat", "admin", "admin");
-                } catch (ClassNotFoundException | SQLException ex) {
-                    Logger.getLogger(Connect.class.getName()).log(Level.SEVERE, null, ex);                           
-                }
-            }
-        } catch (SQLException ex) {
+        try {
+            Class.forName("org.h2.Driver");
+            CONNECT = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/chat", "admin", "admin");
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(Connect.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

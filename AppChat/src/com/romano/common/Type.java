@@ -22,15 +22,24 @@ public class Type {
         GRUPO("G"),
         PARTICULAR("P");
         
-        private final String name;
+        private final String nome;
         
-        TypeTalk(String name){
-            this.name = name;
+        private TypeTalk(String nome){
+            this.nome = nome;
         }
+        
+        public String getName(){
+            return this.nome;
+        } 
         
         @Override
         public String toString(){
-            return this.name;
+            return getName();
+        }  
+        
+        @Override
+        public final int compareTo( o){
+            return 0;
         }
     }
     

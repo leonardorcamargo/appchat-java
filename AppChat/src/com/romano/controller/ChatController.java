@@ -13,6 +13,8 @@ import com.romano.model.Message;
 import com.romano.model.Talk;
 import com.romano.model.User;
 import java.net.URL;
+import java.sql.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -32,6 +34,8 @@ import javafx.scene.input.KeyEvent;
 public class ChatController implements Initializable {
     
     private Talk talk = null;
+    private MessageDAO messageDao = new MessageDAO();
+    private GregorianCalendar gc;
     
     @FXML
     private Button btnEnviar;
@@ -49,7 +53,15 @@ public class ChatController implements Initializable {
      */
     @FXML
     private void handleBtnEnviarAction(ActionEvent event) {
-        listMessage.addMessage(User.getUser(), txtMensagem.getText());
+        Message m = new Message();
+        gc = new GregorianCalendar();
+        
+        m.setDate((Date) gc.getGregorianChange());
+        m.setIdTalk(listMessage.lastMessage().getIdTalk());
+        m.setIdUser(User.getUser().getId());
+        m.setText(txtMensagem.getText());
+        
+        listMessage.addMessage(User.getUser(), m);
         txtMensagem.setText(null);
         txtMensagem.requestFocus();        
         
@@ -63,9 +75,7 @@ public class ChatController implements Initializable {
     @FXML
     private void onKeyPressed(KeyEvent event){
         if ((KeyCode.ENTER.equals(event.getCode()))&&(!event.isShiftDown())){
-            listMessage.addMessage(User.getUser(), txtMensagem.getText());
-            txtMensagem.setText("");
-            txtMensagem.requestFocus();
+            handleBtnEnviarAction(null);            
         }else if ((KeyCode.ENTER.equals(event.getCode()))&&(event.isShiftDown())){
             txtMensagem.setText(txtMensagem.getText()+"\n");
             txtMensagem.end();
@@ -74,8 +84,7 @@ public class ChatController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        TalkDAO talkDao = new TalkDAO();
-        MessageDAO messageDao = new MessageDAO();
+        TalkDAO talkDao = new TalkDAO();        
         UserDAO userDao = new UserDAO();
         List<Talk> lt = talkDao.getListTalk(null);
         
@@ -84,7 +93,7 @@ public class ChatController implements Initializable {
             List<Message> lm = messageDao.getListMessage(talk);            
             
             lm.stream().forEach((m) -> {
-                listMessage.addMessage(userDao.getUser(m.getIdUser()), m.getText());
+                listMessage.addMessage(userDao.getUser(m.getIdUser()), m);
             });            
         }
         

@@ -5,11 +5,10 @@
  */
 package com.romano.component;
 
+import com.romano.common.Functions;
+import com.romano.model.Message;
 import com.romano.model.User;
-import java.text.Format;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -28,6 +27,8 @@ public class ListMessage extends ListView {
     private Label txtUser;
     private Label txtMessage;
     private VBox box;
+    private List<Message> messages = new ArrayList();
+    private final List<User> users = new ArrayList();
     
     private static final String[] s = {
                         "linear-gradient(from 0% 0% to 100% 0%, #E1F5FF 0%, #66CCFF 100%)",
@@ -42,17 +43,15 @@ public class ListMessage extends ListView {
                         "linear-gradient(from 0% 0% to 100% 0%, #CBF1F8 0%, #5CD3E9 100%)",
                         "linear-gradient(from 0% 0% to 100% 0%, #E6EED2 0%, #A6C15E 100%)",
                         "linear-gradient(from 0% 0% to 100% 0%, #DCE2ED 0%, #8DA0C5 100%)",
-                        "linear-gradient(from 0% 0% to 100% 0%, #E1CEC6 0%, #AD7963 100%)"};
-    
-    private final List<User> USERS = new ArrayList();
+                        "linear-gradient(from 0% 0% to 100% 0%, #E1CEC6 0%, #AD7963 100%)"};    
     
     /**
      * Create da classe
      */
     public ListMessage(){
         super(); 
-        if (!USERS.contains(User.getUser())){
-            USERS.add(User.getUser());
+        if (!users.contains(User.getUser())){
+            users.add(User.getUser());
         }
     }
     
@@ -64,10 +63,11 @@ public class ListMessage extends ListView {
      * @param message 
      * Mensagem digitada pelo usuário.
      */
-    public void addMessage(User user, String message){
-        if (!USERS.contains(user)){
-            USERS.add(user);
+    public void addMessage(User user, Message message){
+        if (!users.contains(user)){
+            users.add(user);
         }
+        messages.add(message);
         
         txtUser = new Label();
         txtMessage = new Label();
@@ -79,24 +79,28 @@ public class ListMessage extends ListView {
         txtMessage.setMaxWidth(getWidth()-20);
         txtMessage.setWrapText(true);
         
-        txtUser.setText(getFormatDate()+" - "+user.getName()+":");         
-        txtMessage.setText(message);                  
+        txtUser.setText(Functions.getFormatDate()+" - "+user.getName()+":");         
+        txtMessage.setText(message.getText());                  
         box.getChildren().add(txtUser);
         box.getChildren().add(txtMessage);         
-        box.setBackground(new Background(new BackgroundFill(Paint.valueOf(s[USERS.indexOf(user)]),null,null)));
+        box.setBackground(new Background(new BackgroundFill(Paint.valueOf(s[users.indexOf(user)]),null,null)));
         box.autosize();        
         getItems().add(box);
         scrollTo(box);
     }
     
     /**
-     * Método que formata a data e hora atual para ser exibida junto com a mensagem.
+     * Método que retorna a última mensagem introduzida na lista.
      * @return 
-     * Retorna a data atual fomatada
+     * Retorno da última mensagem.
      */
-    public String getFormatDate(){
-        Format formatter = new SimpleDateFormat("dd/MM HH:mm:ss");
-        return formatter.format(new Date());
+    public Message lastMessage(){
+        if (messages.size() == 0)
+            return null;
+        
+        return messages.get(messages.size()-1);
     }
+    
+
         
 }

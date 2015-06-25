@@ -5,11 +5,10 @@
  */
 package com.romano.dao;
 
-import com.romano.common.Type;
+import com.romano.common.Type.TypeTalk;
 import com.romano.controller.Connect;
 import com.romano.model.Talk;
 import com.romano.model.User;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -48,7 +47,7 @@ public class TalkDAO {
                 if (user != null){
                     prmt.setInt(1, user.getId());
                 }
-                ResultSet rs = prmt.getResultSet();
+                ResultSet rs = prmt.executeQuery();
                 
                 if (rs.wasNull()){
                     return null;
@@ -60,7 +59,8 @@ public class TalkDAO {
                     Talk t = new Talk();
                     t.setId(rs.getInt("ID"));
                     t.setDate(rs.getDate("DATE"));
-                    t.setTypeTalk(Type.TypeTalk.valueOf(rs.getString("TYPETALK")));
+                    String s = rs.getString("TYPETALK"); 
+                    t.setTypeTalk(TypeTalk.valueOf("P"));
                     t.setActive(rs.getBoolean("ACTIVE"));
                     
                     lt.add(t);

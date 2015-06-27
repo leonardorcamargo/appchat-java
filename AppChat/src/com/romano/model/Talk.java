@@ -5,7 +5,6 @@
  */
 package com.romano.model;
 
-import com.romano.common.Type.TypeTalk;
 import java.sql.Date;
 
 /**
@@ -16,7 +15,7 @@ public class Talk {
    
     private int id;
     private Date date;  
-    private TypeTalk typeTalk;
+    private String typeTalk;
     private boolean active;
     
     public int getId(){
@@ -35,11 +34,11 @@ public class Talk {
         this.date = date;
     }
     
-    public TypeTalk getTypeTalk(){
+    public String getTypeTalk(){
         return this.typeTalk;
     }
     
-    public void setTypeTalk(TypeTalk typeTalk){
+    public void setTypeTalk(String typeTalk){
         this.typeTalk = typeTalk;
     }
     

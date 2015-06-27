@@ -5,7 +5,6 @@
  */
 package com.romano.dao;
 
-import com.romano.common.Type.TypeTalk;
 import com.romano.controller.Connect;
 import com.romano.model.Talk;
 import com.romano.model.User;
@@ -58,9 +57,8 @@ public class TalkDAO {
                 while(rs.next()){
                     Talk t = new Talk();
                     t.setId(rs.getInt("ID"));
-                    t.setDate(rs.getDate("DATE"));
-                    String s = rs.getString("TYPETALK"); 
-                    t.setTypeTalk(TypeTalk.valueOf("P"));
+                    t.setDate(rs.getDate("DATE"));                     
+                    t.setTypeTalk(rs.getString("TYPETALK"));
                     t.setActive(rs.getBoolean("ACTIVE"));
                     
                     lt.add(t);

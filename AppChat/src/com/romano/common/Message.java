@@ -6,9 +6,11 @@
 package com.romano.common;
 
 import com.romano.view.AppChat;
+import java.util.Optional;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextInputDialog;
 import javafx.stage.Modality;
 
 /**
@@ -37,8 +39,21 @@ public class Message {
         alert.getDialogPane().setHeaderText(null);
         alert.showAndWait()
             .filter(response -> response == ButtonType.OK)
-            .ifPresent(response -> System.out.println("The alert was approved"));
+            .ifPresent(response -> System.out.println("The alert was approved"));        
         return alert;
     }
     
+    
+    public static String input(String title, String headerText, String message){
+        TextInputDialog dialog = new TextInputDialog(null);
+        dialog.setTitle(title);
+        dialog.setHeaderText(headerText);
+        dialog.setContentText(message);
+       
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            return result.get();
+        }        
+        return null;
+    }    
 }

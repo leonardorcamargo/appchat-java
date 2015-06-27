@@ -3,17 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.romano.common;
+package com.romano.server;
 
 /**
- * Classe onde é armazenado os types utilizados pela aplicação
+ *
  * @author Leonardo Camargo
  */
-
-public class Type {
-    
-    public enum TypeMethod{
-        OK,
-        ERROR_RETURN};
+public class ServerMethodProcess {
     
 }

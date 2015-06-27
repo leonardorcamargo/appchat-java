@@ -16,6 +16,7 @@ public class MultiServerThread extends Thread {
         this.client = client;
     }
     
+    @Override
     public void run() {
 
     	try{
@@ -25,8 +26,9 @@ public class MultiServerThread extends Thread {
             ServerMethod sm = (ServerMethod) input.readObject();                                 
             ServerMethodReturn returnObject = new ServerMethodReturn();
             
-            if (!Functions.getUserPass(sm.getUserPass()) ){
-                //Problema de autenticação
+            if (!Functions.getUserPassCheck(sm.getUserPass()) ){
+                returnObject.setTypeMethod(Type.TypeMethod.ERROR_AUTENTICATION);
+                returnObject.setObject(null);                   
             }else{                
                 try{                    
                     returnObject.setObject(sm.getFunction().apply(sm.getObject()));

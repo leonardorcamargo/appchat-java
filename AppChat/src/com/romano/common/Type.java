@@ -14,6 +14,7 @@ public class Type {
     
     public enum TypeMethod{
         OK,
-        ERROR_RETURN};
+        ERROR_RETURN,
+        ERROR_AUTENTICATION};
     
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.romano.dao;
 
 import com.romano.controller.Connect;
@@ -26,12 +21,14 @@ public class TalkDAO {
     private Connect con = null;
     
     /**
-     * Método utilizado para retornar a lista de conversas que o usuário atual 
-     * possuir
+     * Método utilizado para retornar uma lista de conversas que o usuário atual
+     * possuir.
      * @param user
+     * Usuário utilizado para localizar as conversas.
      * @return 
+     * Este método retorna uma lista de conversas ou null caso não encontre nada.
      */
-    public List<Talk> getListTalk(User user){
+    private List<Talk> getListTalkSocket(User user){
         try{
             con = new Connect();
             try {
@@ -70,7 +67,19 @@ public class TalkDAO {
             }
         }finally{
             con.closeConnection();
-        }                       
+        } 
+    }
+    
+    /**
+     * Método utilizado pelo client para buscar no server uma lista de todas conversas
+     * em que o user está participando.
+     * @param user
+     * User utilizado para localizar a lista no server.
+     * @return 
+     * Este método retorna uma lista de conversas ou null caso não encontre.
+     */
+    public List<Talk> getListTalk(User user){
+         return getListTalkSocket(user);
     }
     
 }

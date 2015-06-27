@@ -3,7 +3,6 @@ package com.romano.server;
 import com.romano.common.Message;
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.util.Scanner;
 import javafx.scene.control.Alert;
 
 public class Server {
@@ -24,16 +23,16 @@ public class Server {
     }
 
     try{
-            // Instancia o ServerSocket ouvindo a porta 12345
-            server = new ServerSocket(port);
+        // Instancia o ServerSocket ouvindo a porta 12345
+        server = new ServerSocket(port);
 
-            System.out.println("Servidor ouvindo a porta "+port);
+        System.out.println("Server hearing port "+port);
 
-            while (listening) {
-                    // o método accept() bloqueia a execução até que         
-                            // o servidor receba um pedido de conexão
-                new MultiServerThread(server.accept()).start();
-            }
+        while (listening) {
+                // o método accept() bloqueia a execução até que         
+                        // o servidor receba um pedido de conexão
+            new MultiServerThread(server.accept()).start();
+        }
         } catch (IOException e) {
         System.err.println("Could not listen on port " + port);
         System.exit(-1);

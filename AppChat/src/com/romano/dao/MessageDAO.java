@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.romano.dao;
 
 import com.romano.controller.Connect;
@@ -25,13 +20,14 @@ public class MessageDAO {
     private Connect con = null;
     
     /**
-     * Método que retorno todas as mensagens de uma conversa específica
+     * Método que retorna todas as mensagens de uma conversa específica.
      * @param talk
-     * Parâmetro que indica qual conversa deve ser filtrada
+     * Parâmetro que indica qual conversa deve ser filtrada.
      * @return 
-     * Retorna uma lista de mensagens ordenadas da conversa selecionada
-     */
-    public List<Message> getListMessage(Talk talk){
+     * Retorna uma lista de mensagens ordenadas da conversa selecionada ou null
+     * caso não encontre.
+     */      
+    private List<Message> getListMessageSocket(Talk talk){
         try{
             con = new Connect();
             
@@ -65,9 +61,29 @@ public class MessageDAO {
             con.closeConnection();
         }
     }
-    
    
-    public List<Message> getLastListMessage(Message message){
+    /**
+     * Método utilizado pelo client para retornar uma lista de mensagens do server
+     * de uma determinada conversa.
+     * @param talk
+     * Talk utililizada para localizar as mensagens no server.
+     * @return 
+     * Este método retorna uma lista de mensagens ou null caso não encontre.
+     */
+    public List<Message> getListMessage(Talk talk){
+        return getListMessageSocket(talk);
+    }
+        
+    /**
+     * Método utilizado pelo server para retornar uma lista de message a partir 
+     * de um determinado id.
+     * @param message
+     * Message utilizada como parâmetro, para que todas as messages retornadas sejam
+     * mais recentes que esta.
+     * @return 
+     * Este método retorna uma lista de message ou null caso não encontre nenhuma
+     */
+    private List<Message> getLastListMessageSocket(Message message){
         try{
             con = new Connect();
             
@@ -104,14 +120,26 @@ public class MessageDAO {
     }
     
     /**
+     * Método utilizado pelo client para retornar do server uma lista de messages
+     * apartir de uma determinada posição.
+     * @param message
+     * Message utilizada como parâmetro para que as messages retornada sejam mais
+     * novas que esta.
+     * @return 
+     * Este método retorna uma lista de message ou null caso não encontre nada.
+     */
+    public List<Message> getLastListMessage(Message message){
+        return getLastListMessageSocket(message);
+    }
+    
+    /**
      * Método utilizado para gravar mensagem na base de dados.
      * @param message
      * Parâmetro com dados da mensagem que será persistida no banco.
+     * @return 
+     * Este método retorna True caso a inserção ocorra corretamente ou false caso contrário.
      */
-    public void setMessage(Message message) {
-        if (message == null)
-            throw new ExceptionInInitializerError("Não foi possível localizar a mensagem...");               
-        
+    private boolean setMessageSocket(Message message) {                             
         try{
             con = new Connect();
             try {
@@ -121,11 +149,27 @@ public class MessageDAO {
                 prmt.setDate(3, message.getDate());
                 prmt.setString(4, message.getText());
                 prmt.executeUpdate();
+                return true;
             } catch (SQLException ex) {
                 Logger.getLogger(MessageDAO.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
             }
         }finally{
             con.closeConnection();
+        }
+    }
+    
+    /**
+     * Método utilizado pelo client para gravar mensagem no server.
+     * @param message
+     * Parâmetro com dados da mensagem que será persistida no banco.
+     */
+    public void setMessage(Message message) {
+        if (message == null)
+            throw new ExceptionInInitializerError("Não foi possível localizar a mensagem..."); 
+        
+        if (setMessageSocket(message)){
+            
         }
     }
 }

@@ -5,10 +5,16 @@
  */
 package com.romano.server;
 
+import com.romano.model.ServerMethod;
+
 /**
  *
  * @author Leonardo Camargo
  */
 public class ServerMethodProcess {
+    
+    public ServerMethodProcess( ServerMethod sm){
+        super();
+    }
     
 }

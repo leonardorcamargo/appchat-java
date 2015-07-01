@@ -1,6 +1,6 @@
 package com.romano.model;
 
-import com.romano.common.Type.TypeMethod;
+import java.lang.reflect.Method;
 import java.util.function.Function;
 
 /**
@@ -10,7 +10,7 @@ import java.util.function.Function;
 public class ServerMethod {
 
     private String userPass;
-    private Function<Object,Object> function;
+    private Method method;
     private Object object;
     
     public void setUserPass(String userPass){
@@ -21,12 +21,12 @@ public class ServerMethod {
         return this.userPass;
     }
     
-    public void setFunction(Function<Object,Object> function){
-        this.function = function;
+    public void setMethod(Method method){
+        this.method = method;
     }
     
-    public Function<Object, Object> getFunction(){
-        return this.function;
+    public Method getMethod(){
+        return this.method;
     }
     
     public void setObject(Object object){

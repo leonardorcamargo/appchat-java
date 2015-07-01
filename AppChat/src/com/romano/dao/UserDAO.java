@@ -6,7 +6,9 @@
 package com.romano.dao;
 
 import com.romano.controller.Connect;
+import com.romano.controller.ConnectServer;
 import com.romano.model.User;
+import java.lang.reflect.Method;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,6 +22,7 @@ import java.util.logging.Logger;
 public class UserDAO {
     
     private Connect con = null;
+    private ConnectServer conServer = null;
     
     /**
      * Método utilizado pelo server para buscar user pelo login e senha.
@@ -72,8 +75,14 @@ public class UserDAO {
         if(login.equals("") || password.equals(""))
             return null;
         
-        return getUserSocket(login,password);
-        
+        conServer = new ConnectServer();             
+        try {
+            Method u = class.getMethod("getUserSocket", String.class, String.class);
+            return (User)conServer.accept(u, login);
+        } catch (NoSuchMethodException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+        return null;
     }
     
     /**

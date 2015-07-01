@@ -1,9 +1,9 @@
 package com.romano.server;
 
+import com.romano.model.ServerMethodReturn;
+import com.romano.model.ServerMethod;
 import com.romano.common.Functions;
 import com.romano.common.Type;
-import com.romano.model.ServerMethod;
-import com.romano.model.ServerMethodReturn;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -31,7 +31,7 @@ public class MultiServerThread extends Thread {
                 returnObject.setObject(null);                   
             }else{                
                 try{                    
-                    returnObject.setObject(sm.getFunction().apply(sm.getObject()));
+                    returnObject.setObject(sm.getMethod().invoke(this, sm.getObject()));
                     returnObject.setTypeMethod(Type.TypeMethod.OK);
                 }catch(Exception e){
                     returnObject.setTypeMethod(Type.TypeMethod.ERROR_RETURN);
